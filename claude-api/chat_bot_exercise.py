@@ -19,11 +19,12 @@ def add_assistant_message(messages, content):
     messages.append(assistant_message)
 
 # Call API and return the response from assistant
-def chat(messages):
+def chat(messages, system):
     message = client.messages.create(
         model=model,
         max_tokens=1000,
-        messages=messages
+        messages=messages,
+        system = system
     )
 
     #print(message)
@@ -36,5 +37,6 @@ messages = []
 while True:
     prompt = input("Please enter your prompt:")
     add_user_message(messages, prompt)
-    assistant_response = chat(messages)
+    system = 'Keep the response concise and within one paragraph.'
+    assistant_response = chat(messages, system)
     add_assistant_message(messages, assistant_response)
